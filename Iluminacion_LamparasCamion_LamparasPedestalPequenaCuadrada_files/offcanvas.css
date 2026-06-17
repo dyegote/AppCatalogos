@@ -1,0 +1,121 @@
+/**
+ * @package     VP Smart Template
+ * @copyright   Copyright (C) 2012-2025 VirtuePlanet Services LLP. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      Abhishek Das <info@virtueplanet.com>
+ * @link        https://www.virtueplanet.com
+ */
+.mm-menu * {
+	-webkit-box-sizing: initial;
+	-moz-box-sizing: initial;
+	box-sizing: initial;
+}
+#vpf-offcanvas:not( .mm-menu ) {
+	display: none;
+}
+.navbar-toggle.vpf-offcanvas-toggle {
+	z-index: 100;
+	border-radius: 0;
+	border: 0 none;
+	width: auto;
+	height: auto;
+	line-height: 1;
+	text-transform: uppercase;
+	background-color: transparent;
+	color: #333;
+	font-weight: normal;
+	padding: 0;
+	margin: 0 0 0 20px;
+	float: none;
+	vertical-align: top;
+}
+.navbar-toggle.vpf-offcanvas-toggle:hover,
+.navbar-toggle.vpf-offcanvas-toggle:focus,
+.navbar-toggle.vpf-offcanvas-toggle:active {
+	outline: 0 none;
+	-webkit-box-shadow: none;
+	box-shadow: none;	
+}
+.vpf-offcanvas-toggle .icon-bar {
+	background-color: #333;
+}
+.offcanvas-toggle-container {
+	position: absolute;
+	top: 50%;
+	margin-top: -14px;
+	right: 15px;
+}
+.mm-menu li .offcanvas-icon {
+	margin: 0 20px 0 5px;
+	font-size: 16px;
+	width: 12px;
+	vertical-align: inherit;
+}
+.mm-menu li img {
+	margin: 0 20px 0 5px;
+}
+.mm-menu li.active > a {
+	color: #FFF;
+}
+.mm-header {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.mm-footer {
+	min-height: 40px;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.mm-opened .vpf-wrapper {
+	overflow: hidden;
+}
+.btn.btn-offcanvas-close {
+	position: absolute;
+	top: 12px;
+	right: 15px;
+	background: 0 none;
+	padding: 0;
+	text-align: center;
+	font-size: 32px;
+	line-height: 1;
+	font-weight: normal;
+	color: rgba(255, 255, 255, 0.6);
+	border: 0 none;
+	outline: 0 none;
+	z-index: 10;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.btn.btn-offcanvas-close:hover,
+.btn.btn-offcanvas-close:focus,
+.btn.btn-offcanvas-close:active {
+	color: #FFF;
+	outline: 0 none;
+	border: 0 none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.mm-white .btn.btn-offcanvas-close,
+.mm-light .btn.btn-offcanvas-close {
+	color: rgba(0,0,0,.6);
+}
+.mm-white .btn.btn-offcanvas-close:hover,
+.mm-white .btn.btn-offcanvas-close:focus,
+.mm-white .btn.btn-offcanvas-close:active,
+.mm-menu.mm-white li.active > a,
+.mm-light .btn.btn-offcanvas-close:hover,
+.mm-light .btn.btn-offcanvas-close:focus,
+.mm-light .btn.btn-offcanvas-close:active,
+.mm-menu.mm-light li.active > a {
+	color: #333;
+}
+@media (max-width : 991px) {
+	#mm-blocker {
+		background-color: #000;
+		opacity: 0.5;
+		filter: alpha(opacity=50);
+	}
+}

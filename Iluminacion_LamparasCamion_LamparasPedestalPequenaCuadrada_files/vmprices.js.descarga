@@ -1,0 +1,314 @@
+/**
+ * @package       VP Smart Template
+ * @copyright     Copyright (C) 2012-2025 VirtuePlanet Services LLP. All rights reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @author        Abhishek Das <info@virtueplanet.com>
+ * @link          https://www.virtueplanet.com
+ */
+var Virtuemart = window.Virtuemart || {};
+
+Virtuemart.ajaxPool = {};
+
+Virtuemart.setproducttype = function (form, id) {
+    var $ = jQuery.noConflict();
+    form.view = null;
+    var datas = form.serialize();
+    var prices = form.closest(".vm-productdetails").find(".product-price-stock-sku-cont .product-price");
+    if (!prices.length) {
+        prices = form.closest(".product-item").find(".product-price");
+    }
+    datas = datas.replace('&view=cart', '');
+    prices.fadeTo('fast', 0.75);
+    if (Virtuemart.ajaxPool.hasOwnProperty('setproducttype') && Virtuemart.ajaxPool['setproducttype'].readystate != 4) {
+        Virtuemart.ajaxPool['setproducttype'].abort();
+    }
+    Virtuemart.ajaxPool['setproducttype'] = $.ajax({
+        dataType: 'JSON',
+        type: 'GET',
+        cache: false,
+        url: window.vmSiteurl + 'index.php?&option=com_virtuemart&view=productdetails&task=recalculate&format=json&nosef=1' + window.vmLang,
+        data: datas,
+        success: function (data, textStatus) {
+            prices.fadeTo('fast', 1);
+            $('#system-message-container #system-message div.vmprices-message').remove();
+            for (var key in data) {
+                var value = data[key];
+                if (key == 'messages') {
+                    if ($.type(data[key]) == 'string') {
+                        data[key] = $.parseHTML(data[key]);
+                    }
+                    var newmessages = $(data[key]).find('div.alert').addClass('vmprices-message');
+                    if (!$('#system-message-container #system-message').length && newmessages.length) {
+                        $('#system-message-container').append('<div id="system-message"></div>');
+                        t("html, body").animate({
+                            scrollTop: $('#system-message-container').offset().top - 50
+                        }, 500);
+                    }
+                    newmessages.appendTo('#system-message-container #system-message');
+                } else {
+                    if (!value) {
+                        prices.find('.Price' + key).html(0).addClass('hide');
+                    } else {
+                        if (key == 'discountAmount' && value.indexOf('-') >= 0) {
+                            value = value.replace('-', '');
+                        }
+                        prices.find('span.Price' + key).removeClass('hide').html(value);
+                    }
+                }
+            }
+        }
+    });
+    return false;
+}
+
+Virtuemart.productUpdate = function () {
+    var $ = jQuery.noConflict();
+    $('body').trigger('updateVirtueMartCartModule');
+}
+
+Virtuemart.eventsetproducttype = function (event) {
+    Virtuemart.setproducttype(event.data.cart, event.data.virtuemart_product_id);
+}
+
+Virtuemart.incrQuantity = (function (event) {
+    var rParent = jQuery(this).parent().parent();
+    quantity = rParent.find('input[name="quantity[]"]');
+    virtuemart_product_id = rParent.find('input[name="virtuemart_product_id[]"]').val();
+    Ste = parseInt(quantity.attr("step"));
+    if (isNaN(Ste)) Ste = 1;
+    Qtt = parseInt(quantity.val());
+    if (!isNaN(Qtt)) {
+        quantity.val(Qtt + Ste);
+        maxQtt = parseInt(quantity.attr("max"));
+        if (!isNaN(maxQtt) && quantity.val() > maxQtt) {
+            quantity.val(maxQtt);
+        }
+        Virtuemart.setproducttype(event.data.cart, virtuemart_product_id);
+    }
+});
+
+Virtuemart.decrQuantity = (function (event) {
+    var rParent = jQuery(this).parent().parent();
+    var quantity = rParent.find('input[name="quantity[]"]');
+    var virtuemart_product_id = rParent.find('input[name="virtuemart_product_id[]"]').val();
+    var Ste = parseInt(quantity.attr("step"));
+    if (isNaN(Ste)) Ste = 1;
+    var minQtt = parseInt(quantity.attr("init"));
+    if (isNaN(minQtt)) minQtt = 1;
+    var Qtt = parseInt(quantity.val());
+
+    if (!isNaN(Qtt) && Qtt > Ste) {
+        quantity.val(Qtt - Ste);
+        if (!isNaN(minQtt) && quantity.val() < minQtt) {
+            quantity.val(minQtt);
+        }
+    } else quantity.val(minQtt);
+    Virtuemart.setproducttype(event.data.cart, virtuemart_product_id);
+});
+
+Virtuemart.addtocart = function (e) {
+    var targ;
+    if (!e) e = window.event;
+    e.preventDefault();
+    if (e.hasOwnProperty('stopSendtocart') && e.stopSendtocart == true) {
+        return false;
+    }
+    if (e.target) targ = e.target;
+    else if (e.srcElement) targ = e.srcElement;
+    if (targ.nodeType == 3) // defeat Safari bug
+        targ = targ.parentNode;
+
+    if (jQuery(targ).prop("type") == "submit" || jQuery(targ).prop("type") == "image") {
+        Virtuemart.sendtocart(e.data.cart);
+        return false;
+    }
+};
+
+Virtuemart.sendtocart = function (form) {
+    if (Virtuemart.addtocart_popup == 1) {
+        Virtuemart.cartEffect(form);
+    } else {
+        form.append('<input type="hidden" name="task" value="add" />');
+        form.submit();
+    }
+}
+
+Virtuemart.cartEffect = function (form) {
+    var $ = jQuery.noConflict();
+    if (Virtuemart.ajaxPool.hasOwnProperty('add') && Virtuemart.ajaxPool['add'].readystate != 4) {
+        Virtuemart.ajaxPool['add'].abort();
+    }
+    Virtuemart.ajaxPool['add'] = $.ajax({
+        dataType: 'JSON',
+        type: 'GET',
+        cache: false,
+        beforeSend: function () {
+            VPF.showVPFActivity();
+        },
+        url: window.vmSiteurl + 'index.php?option=com_virtuemart&nosef=1&view=cart&task=addJS&format=json' + vmLang,
+        data: form.serialize(),
+        success: function (data, textStatus) {
+            VPF.stopVPFActivity();
+            // If Quick view show dialog in parent window
+            if ($('html').hasClass('tmpl-component') && $('html').hasClass('view-productdetails') && window.location != window.parent.location) {
+                window.parent.Virtuemart.renderDialog(data, textStatus);
+            } else {
+                Virtuemart.renderDialog(data, textStatus);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+            VPF.stopVPFActivity();
+        }
+    });
+}
+
+Virtuemart.renderDialog = function (data, textStatus) {
+    var $ = jQuery.noConflict();
+    if ($.type(data.msg) == 'string') {
+        data.msg = $.parseHTML(data.msg);
+    }
+    var title,
+        $closeButton,
+        buttons,
+        $message = $(data.msg),
+        type = BootstrapDialog.TYPE_INFO;
+    if ($('.ajax-popup-buttons', $message).length) {
+        buttons = $('.ajax-popup-buttons', $message).html();
+        $('.ajax-popup-buttons', $message).remove();
+    }
+    if ($('.hasError', $message).length) {
+        title = '<span class="product-added-title">' + Joomla.JText._("WARNING") + '</span>';
+        type = BootstrapDialog.TYPE_WARNING;
+    } else if (data.stat == 1) {
+        title = '<span class="product-added-title">' + Joomla.JText._("COM_VIRTUEMART_PRODUCT_ADDED_SUCCESSFULLY") + '</span>';
+    } else if (data.stat == 2) {
+        title = form.find(".pname").val();
+        type = BootstrapDialog.TYPE_WARNING;
+    } else {
+        title = vmCartError;
+        type = BootstrapDialog.TYPE_DANGER;
+    }
+    var dialog = new BootstrapDialog({
+        title: title,
+        message: function (dialogRef) {
+            if (!title) {
+                $closeButton = $('<button type="button" class="btn btn-modal-close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+                $closeButton.on('click', {
+                    dialogRef: dialogRef
+                }, function (event) {
+                    event.data.dialogRef.close();
+                });
+                var $temp = $('<div/>').append($closeButton).append($message);
+                $message = $temp.contents();
+            }
+
+            return $message;
+        },
+        type: type,
+        cssClass: 'modal-center',
+        onshown: function (dialogRef) {
+            dialogRef.getModal().attr('aria-hidden', 'false').attr('tabindex', '0');
+        },
+        onhidden: function (dialogRef) {
+            dialogRef.getModal().attr('aria-hidden', 'true').attr('tabindex', '-1');
+        }
+    });
+    dialog.realize();
+    if (!title) {
+        dialog.getModalHeader().remove();
+    }
+    if (buttons) {
+        dialog.getModalFooter().html(buttons).show();
+        dialog.getModalFooter().find('.show-cart-button').click(function () {
+            VPF.showVPFActivity();
+        });
+    } else {
+        dialog.getModalFooter().remove();
+    }
+    dialog.open();
+    Virtuemart.productUpdate();
+};
+
+Virtuemart.product = function (carts) {
+    carts.each(function () {
+        var cart = jQuery(this),
+            step = cart.find('input[name="quantity[]"]'),
+            addtocart = cart.find('input.addtocart-button, button[name="addtocart"], input[name="addtocart"], a[name="addtocart"]'),
+            plus = cart.find('.quantity-plus'),
+            minus = cart.find('.quantity-minus'),
+            select = cart.find('select:not(.no-vm-bind)'),
+            radio = cart.find('input:radio:not(.no-vm-bind)'),
+            virtuemart_product_id = cart.find('input[name="virtuemart_product_id[]"]').val(),
+            quantity = cart.find('.quantity-input');
+
+        var Ste = parseInt(step.val());
+        if (isNaN(Ste)) {
+            Ste = 1;
+        }
+        var quantityErrorAlert = function () {
+            var me = jQuery(this);
+            Virtuemart.checkQuantity(this, me.attr("step"), me.attr("data-errStr"));
+        };
+
+        plus
+            .off('click', Virtuemart.incrQuantity)
+            .on('click', {
+                cart: cart
+            }, Virtuemart.incrQuantity);
+
+        minus
+            .off('click', Virtuemart.decrQuantity)
+            .on('click', {
+                cart: cart
+            }, Virtuemart.decrQuantity);
+
+        select
+            .off('change', Virtuemart.eventsetproducttype)
+            .on('change', {
+                cart: cart,
+                virtuemart_product_id: virtuemart_product_id
+            }, Virtuemart.eventsetproducttype);
+
+        radio
+            .off('change', Virtuemart.eventsetproducttype)
+            .on('change', {
+                cart: cart,
+                virtuemart_product_id: virtuemart_product_id
+            }, Virtuemart.eventsetproducttype);
+
+        quantity
+            .off('keyup', Virtuemart.eventsetproducttype)
+            .on('keyup', {
+                cart: cart,
+                virtuemart_product_id: virtuemart_product_id
+            }, Virtuemart.eventsetproducttype)
+            .off('blur click change submit', quantityErrorAlert)
+            .on('blur click change submit', quantityErrorAlert);
+
+        this.action = "#";
+
+        jQuery(addtocart).off('click', Virtuemart.addtocart);
+        jQuery(addtocart).on('click', {
+            cart: cart
+        }, Virtuemart.addtocart);
+    });
+}
+
+Virtuemart.checkQuantity = function (obj, step, myStr) {
+    // Use modulus operator "%" to see if there is a remainder
+    var remainder = obj.value % step,
+        quantity = obj.value;
+    if (remainder != 0) {
+        alert(myStr.replace("%s", step));
+        if (quantity != remainder && quantity > remainder) {
+            obj.value = quantity - remainder;
+        } else {
+            obj.value = step;
+        }
+        return false;
+    }
+    return true;
+}

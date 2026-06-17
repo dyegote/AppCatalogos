@@ -1,0 +1,237 @@
+/**
+ * @package     VP Smart Template
+ * @copyright   Copyright (C) 2012-2025 VirtuePlanet Services LLP. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      Abhishek Das <info@virtueplanet.com>
+ * @link        https://www.virtueplanet.com
+ */
+/* General Mobile Nav Bar */
+.navbar.navbar-offcanvas {
+	min-height: 10px;
+	border-radius: 0;
+}
+/* Collapsible Menu */
+.vpf-collapsible-menu,
+.vpf-collapsible-menu ul {
+	list-style: none;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.vpf-collapsible-menu li.deeper > ul {
+	display: none;
+	
+}
+.vpf-collapsible-menu li.deeper.active > ul {
+	display: block;
+}
+.vpf-collapsible-menu li.deeper.open > ul {
+	display: block;
+}
+.vpf-collapsible-menu li > a,
+.vpf-collapsible-menu li > span {
+	position: relative;
+	display: block;
+}
+.vpf-collapsible-menu .opener {
+	position: absolute;
+	top: 0;
+	right: 5px;
+	display: inline-block;
+	font-family: 'FontAwesome';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	text-decoration: inherit;	
+	line-height: 1;
+	vertical-align: middle;	
+	border-color: rgba(0, 0, 0, 0);
+	border-style: solid;
+	border-width: 1px;
+	padding: 2px 5px;
+	margin-right: 0;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.vpf-collapsible-menu .opener:after {
+	content: "\f107";
+	font-size: 16px;
+}
+.vpf-collapsible-menu .open > a > .opener:after,
+.vpf-collapsible-menu .open > span > .opener:after {
+	content: "\f106";
+	font-size: 16px;
+}
+/* Side bar menu */
+.sidebar-menu,
+.sidebar-menu ul,
+.aside-inner .mostread,
+.aside-inner .latestnews,
+.aside-inner .archive-module,
+.aside-inner .categories-module {
+	list-style: none;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.sidebar-menu li,
+.aside-inner .mostread li,
+.aside-inner .latestnews li,
+.aside-inner .archive-module li,
+.aside-inner .categories-module li {
+	display: block;
+	position: relative;
+}
+.sidebar-menu li > a,
+.sidebar-menu li > span,
+.aside-inner .mostread li > a,
+.aside-inner .mostread li > span,
+.aside-inner .latestnews li > a,
+.aside-inner .latestnews li > span,
+.aside-inner .archive-module li > a,
+.aside-inner .archive-module li > span,
+.aside-inner .categories-module li > h3 > a,
+.aside-inner .categories-module li > h4 > a,
+.aside-inner .categories-module li > h5 > a,
+.aside-inner .categories-module li > h6 > a,
+.aside-inner .categories-module li > h7 > a {
+	display: block;
+	position: relative;
+	border-bottom: 1px solid #EEE;
+	padding: 10px 15px;
+	color: #333;
+	font-size: inherit;
+	line-height: inherit;
+}
+.aside-inner .categories-module li > h4,
+.aside-inner .categories-module li > h5,
+.aside-inner .categories-module li > h6 {
+	margin: 0;
+	padding: 0;
+	line-height: 1.3;
+}
+.aside-inner .categories-module li > h4 {
+	font-size: 16px;
+}
+.aside-inner .categories-module li > h5 {
+	font-size: 14px;
+}
+.aside-inner .categories-module li > h6 {
+	font-size: 12px;
+}
+.sidebar-menu li > a > img {
+	max-width: 24px;
+	height: auto;
+}
+.sidebar-menu .image-title {
+	display: inline-block;
+	margin-left: 10px;
+}
+.sidebar-menu li.deeper > a,
+.sidebar-menu li.deeper > span {
+	padding-right: 40px;
+}
+.sidebar-menu.nav > li > ul > li > a,
+.sidebar-menu.nav > li > ul > li > span,
+.aside-inner .categories-module > li > ul > li > a {
+	padding-left: 30px;
+}
+.sidebar-menu.nav > li > ul > li > ul > li > a,
+.sidebar-menu.nav > li > ul > li > ul > li > span,
+.aside-inner .categories-module > li > ul > li > ul > li > a {
+	padding-left: 45px;
+}
+.sidebar-menu.nav > li > ul > li > ul > li > ul > li > a,
+.sidebar-menu.nav > li > ul > li > ul > li > ul > li > span,
+.aside-inner .categories-module > li > ul > li > ul > li > ul > li > a {
+	padding-left: 60px;
+}
+.sidebar-menu.nav > li > ul > li > ul > li > ul > li > ul > li > a,
+.sidebar-menu.nav > li > ul > li > ul > li > ul > li > ul > li > span,
+.aside-inner .categories-module > li > ul > li > ul > li > ul > li > ul > li > a {
+	padding-left: 75px;
+}
+.sidebar-menu.nav > li > ul > li > ul > li > ul > li > ul > li > ul > li > a,
+.sidebar-menu.nav > li > ul > li > ul > li > ul > li > ul > li > ul > li > span,
+.aside-inner .categories-module > li > ul > li > ul > li > ul > li > ul > li > ul > li > a {
+	padding-left: 90px;
+}
+.sidebar-menu li > a .opener,
+.sidebar-menu li > span .opener {
+	top: 7px;
+}
+.sidebar-menu .open > a,
+.sidebar-menu .open > span {
+	background-color: transparent;
+	border-color: #EEE;
+}
+.sidebar-menu li > a:hover, 
+.sidebar-menu li > a:focus,
+.sidebar-menu li > span:hover, 
+.sidebar-menu li > span:focus,
+.aside-inner .mostread li > a:hover,
+.aside-inner .mostread li > a:focus,
+.aside-inner .latestnews li > a:hover,
+.aside-inner .latestnews li > a:focus,
+.aside-inner .archive-module li > a:hover,
+.aside-inner .archive-module li > a:focus,
+.sidebar-menu .open > a:hover, 
+.sidebar-menu .open > a:focus,
+.sidebar-menu .open > span:hover, 
+.sidebar-menu .open > span:focus,
+.aside-inner .categories-module li > h3 > a:hover,
+.aside-inner .categories-module li > h3 > a:focus,
+.aside-inner .categories-module li > h4 > a:hover,
+.aside-inner .categories-module li > h4 > a:focus,
+.aside-inner .categories-module li > h5 > a:hover,
+.aside-inner .categories-module li > h5 > a:focus,
+.aside-inner .categories-module li > h6 > a:hover,
+.aside-inner .categories-module li > h6 > a:focus,
+.aside-inner .categories-module li > h7 > a:hover,
+.aside-inner .categories-module li > h7 > a:focus {
+	background-color: #F8F8F8;
+	border-color: #EEE;
+}
+.sidebar-menu .active > a,
+.sidebar-menu .active > a:hover, 
+.sidebar-menu .active > a:focus,
+.sidebar-menu .active > span,
+.sidebar-menu .active > span:hover, 
+.sidebar-menu .active > span:focus,
+.aside-inner .mostread li.active > a,
+.aside-inner .mostread li.active > a:hover,
+.aside-inner .mostread li.active > a:focus,
+.aside-inner .latestnews li.active > a,
+.aside-inner .latestnews li.active > a:hover,
+.aside-inner .latestnews li.active > a:focus,
+.aside-inner .archive-module li.active > a,
+.aside-inner .archive-module li.active > a:hover,
+.aside-inner .archive-module li.active > a:focus,
+.aside-inner .categories-module li.active > h3 > a,
+.aside-inner .categories-module li.active > h3 > a:hover,
+.aside-inner .categories-module li.active > h3 > a:focus,
+.aside-inner .categories-module li.active > h4 > a,
+.aside-inner .categories-module li.active > h4 > a:hover,
+.aside-inner .categories-module li.active > h4 > a:focus,
+.aside-inner .categories-module li.active > h5 > a,
+.aside-inner .categories-module li.active > h5 > a:hover,
+.aside-inner .categories-module li.active > h5 > a:focus,
+.aside-inner .categories-module li.active > h6 > a,
+.aside-inner .categories-module li.active > h6 > a:hover,
+.aside-inner .categories-module li.active > h6 > a:focus,
+.aside-inner .categories-module li.active > h7 > a,
+.aside-inner .categories-module li.active > h7 > a:hover,
+.aside-inner .categories-module li.active > h7 > a:focus {
+	color: #FE5252;
+}
+.sidebar-menu .opener {
+	color: #333;
+	text-decoration: none;
+	-webkit-transition: all 100ms ease-in;
+	-moz-transition: all 100ms ease-in;
+	-o-transition: all 100ms ease-in;
+	transition: all 100ms ease-in;	
+}

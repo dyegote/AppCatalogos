@@ -1,0 +1,104 @@
+/**
+ * Copyright breakdesigns.net
+ */
+if (typeof CustomfieldsForAll === "undefined") {
+	var CustomfieldsForAll = {
+
+		handleForms : function(forms) {
+			forms.each(function() {
+				let form = jQuery(this);
+				let addtocart = form.find('input[type="submit"]');
+				if(!addtocart.length) {
+					addtocart = form.find('button[type="submit"]');
+				}
+				if(!addtocart.length) {
+					addtocart = form.find('.addtocart-button');
+				}
+				Virtuemart.stopSendtocart = false;
+				addtocart.off('click submit');
+				addtocart.click(function(e) {
+					let form = jQuery(this).parents('form');
+					let requiredChecked=CustomfieldsForAll.checkRequired(form);
+					if(requiredChecked) {
+						Virtuemart.sendtocart(form);
+					}
+					return false;
+				});
+			});
+		},
+
+		checkRequired : function(form) {
+			const required_fields = form.find('.cf4all_required');
+			let emptyFound = false;
+			let sel_value;
+
+			jQuery.each(
+				required_fields,
+				function() {
+					const field = jQuery(this);
+					const radios_checked = field
+							.find('.cf4all_radio:checked').length;
+					const checkboxes_checked = field
+							.find('.cf4all_checkbox:checked').length;
+					const select_selected = field
+							.find('select option:selected').length;
+					if (select_selected > 0)
+						sel_value = field.find(
+								'select option:selected').attr(
+								'value');
+					if (radios_checked == 0
+							&& checkboxes_checked == 0
+							&& (select_selected == 0
+									|| typeof sel_value == 'undefined' || sel_value == 0)) {
+						emptyFound = true;
+						CustomfieldsForAll.displayMsg(field);
+					}
+				});
+			if (emptyFound == false) {
+				return true;
+			}
+			return false;
+		},
+
+		eventHandler : function() {
+			jQuery('.cf4all_wrapper input').click(function() {
+				const required = jQuery(this).parents('.cf4all_required');
+				if (required)
+					CustomfieldsForAll.hideMsg(required);
+			});
+
+			jQuery('.cf4all_wrapper select').change(function() {
+				const required = jQuery(this).parents('.cf4all_required');
+				if (required)
+					CustomfieldsForAll.hideMsg(required);
+			});
+		},
+
+		displayMsg : function(el) {
+			el.find('span.cf4all_error_msg').css('display', 'inline-block');
+		},
+		hideMsg : function(el) {
+			el.find('span.cf4all_error_msg').css('display', 'none');
+		},
+		/**
+		 * enable the built in tooltip effect
+		 * @deprecated 4.1.0 tooltips now work with css
+		 */
+		enableTooltips:function(){
+			//Keep that function just for backward compatibility, as it is may called by other extensions
+		}
+	}
+
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+	/**
+	 * Handle the required fields
+	 */
+	CustomfieldsForAll.eventHandler();
+	var forms = jQuery("form.product");
+	setTimeout(function() {
+		CustomfieldsForAll.handleForms(forms);
+	}, 13);
+
+});

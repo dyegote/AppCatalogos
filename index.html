@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Extractor SPA - Catálogos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Extractor de productos (SPA)</h1>
+    <p>Cargue uno o varios archivos HTML de catálogo para extraer datos según EspecificacionInicial.txt</p>
+  </header>
+  <main>
+    <section class="controls">
+      <label class="file-label">Seleccionar archivos HTML:
+        <input id="fileInput" type="file" accept=".htm,.html" multiple>
+      </label>
+      <button id="clearBtn">Limpiar</button>
+      <button id="exportCsvBtn">Exportar CSV</button>
+    </section>
+    <section class="filters">
+      <label>Typo: <select id="filterTypo"><option value="">(Todos)</option></select></label>
+      <label>Categoria: <select id="filterCategoria"><option value="">(Todos)</option></select></label>
+      <label>Subcategoria: <select id="filterSubcategoria"><option value="">(Todos)</option></select></label>
+      <label>Buscar: <input id="search" placeholder="texto..."/></label>
+    </section>
+    <section class="table-wrap">
+      <table id="results">
+        <thead>
+          <tr>
+            <th>CODIGO</th>
+            <th>NOMBRE_PRODUCTO</th>
+            <th>MARCA</th>
+            <th>TYPO</th>
+            <th>CATEGORIA</th>
+            <th>SUBCATEGORIA</th>
+            <th>PRECIO</th>
+            <th>MOQ</th>
+            <th>CTN</th>
+            <th>ARANCEL</th>
+            <th>IVA</th>
+            <th>IMAGEN_RELATIVA</th>
+            <th>ARCHIVO_ORIGEN</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+  <script src="app.js" defer></script>
+</body>
+</html>

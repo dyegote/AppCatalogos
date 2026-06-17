@@ -1,0 +1,506 @@
+/**
+ * @package     VP Smart Template
+ * @copyright   Copyright (C) 2012-2025 VirtuePlanet Services LLP. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      Abhishek Das <info@virtueplanet.com>
+ * @link        https://www.virtueplanet.com
+ */
+.vpf-mega-menu-container.sticky {
+	position: fixed;
+	top: 0;
+	z-index: 109;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+.nav {
+	padding: 0;
+}
+.header-top .navbar {
+	margin-bottom: 0;
+}
+.vpf-menu .caret {
+	margin-left: 4px;
+}
+.navbar-mainmenu .navbar-collapse {
+	padding-left: 0;
+	padding-right: 0;
+	background-color: transparent;
+	border-bottom: 0 none;
+	text-align: center;
+}
+.vpf-menu.navbar-nav {
+	display: inline-block;
+	float: none;
+}
+.navbar-mainmenu .navbar-nav > li > a, 
+.navbar-mainmenu .navbar-nav > li > span {
+	position: relative;
+	display: block;
+	padding: 8px 12px;
+	height: 36px;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	background-color: transparent;
+	color: #333;
+	z-index: 100;
+	transition: color 100ms ease-in-out, background-color 100ms ease-in-out;
+	-moz-transition: color 100ms ease-in-out, background-color 100ms ease-in-out;
+	-webkit-transition: color 100ms ease-in-out, background-color 100ms ease-in-out;
+	-o-transition: color 100ms ease-in-out, background-color 100ms ease-in-out;
+}
+.navbar-mainmenu .navbar-nav > li:hover > a, 
+.navbar-mainmenu .navbar-nav > li:focus > a, 
+.navbar-mainmenu .navbar-nav > li:hover > span,
+.navbar-mainmenu .navbar-nav > li:focus > span,
+.navbar-mainmenu .navbar-nav > li.active > a, 
+.navbar-mainmenu .navbar-nav > li.active > span,
+.navbar-mainmenu .navbar-nav > li.open > a, 
+.navbar-mainmenu .navbar-nav > li.open > span {
+	background-color: transparent;
+	color: #333;
+}
+.navbar-mainmenu .navbar-nav > li.open > a, 
+.navbar-mainmenu .navbar-nav > li.open > span {
+	z-index: 102;
+}
+.navbar-mainmenu .navbar-nav > li > a:after, 
+.navbar-mainmenu .navbar-nav > li > span:after {
+	content: "";
+	display: block;
+	position: absolute;
+	height: 2px !important;
+	background-color: rgba(255, 255, 255, 0.4);
+	left: 50%;
+	right: 50%;
+	opacity: 0;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+.navbar-mainmenu .navbar-nav > li.active > a:after, 
+.navbar-mainmenu .navbar-nav > li.active > span:after,
+.navbar-mainmenu .navbar-nav > li.open > a:after, 
+.navbar-mainmenu .navbar-nav > li.open > span:after {
+	left: 1em;
+	right: 1em;
+	background-color: rgba(0, 0, 0, 0.2);
+	opacity: 1;
+}
+.navbar-mainmenu .navbar-nav > li > a > .caret, 
+.navbar-mainmenu .navbar-nav > li > span > .caret {
+	border-top-color: #BEBEBE;
+}
+.navbar-mainmenu .navbar-nav > li.active > a > .caret, 
+.navbar-mainmenu .navbar-nav > li.active > span > .caret {
+	border-top-color: #FFF;
+}
+.navbar-mainmenu .navbar-nav > li.open > a > .caret, 
+.navbar-mainmenu .navbar-nav > li.open > span > .caret {
+	border-top-color: #BEBEBE;
+}
+.mega-menu-expand, 
+.vpf-menu .submenu li.deeper > ul {
+	position: absolute;
+	top: 80px;
+	left: 0;
+	display: none;
+	float: left;
+	min-width: 200px;
+	padding: 20px;
+	margin: 0;
+	list-style: none;
+	font-size: 14px;
+	text-align: left;
+	background-color: #FFF;
+	border-top: 1px solid #eee;
+	-moz-box-shadow: 0 3px 10px rgba(0,0,0, 0.15);
+	-webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+	background-clip: padding-box;	
+	z-index: 101;
+}
+.mega-menu-expand:before, 
+.vpf-menu .submenu li.deeper > ul:before {
+	position: absolute;
+	content: "";
+	top: -50px;
+	left: 0;
+	width: 100%;
+	height: 55px;
+}
+.mega-menu-expand.mega-align-right {
+	right: 0;
+	left: auto;
+}
+.vpf-menu .mega-expand > .mega-menu-expand {
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+.navbar-mainmenu .navbar-nav li.submenu.mega-group.level-2 > a,
+.navbar-mainmenu .navbar-nav li.submenu.mega-group.level-2 > span {
+	font-size: 14px;
+	text-transform: uppercase;
+	color: #333;
+	font-weight: bold;
+}
+.mega-sub-cont ul {
+	list-style: none;
+	list-style-type: none;
+	margin-bottom: 0;
+	padding: 0;
+}
+.mega-sub-cont li {
+	display: block;
+	list-style: none;
+	margin-left: 0;
+}
+.mega-sub-cont li.submenu > a,
+.mega-sub-cont li.submenu > span,
+.mega-sub-cont ul.vpf-mega-mod li > a,
+.mega-sub-cont ul.vpf-mega-mod li > span {
+	position: relative;
+	display: block;
+	padding: 5px 0;
+	font-size: 14px;
+	color: #333;
+	text-decoration: none;
+	background-color: transparent;
+}
+.mega-sub-cont.mega-menu-group > ul > li.submenu > a,
+.mega-sub-cont.mega-menu-group > ul > li.submenu > span {
+	position: relative;
+	padding-bottom: 0;
+}
+.mega-sub-cont.mega-menu-group > ul > li.submenu.mega-group > a,
+.mega-sub-cont.mega-menu-group > ul > li.submenu.mega-group > span {
+	padding-bottom: 5px;
+}
+.mega-menu-group .mega-menu-group {
+	margin-left: 15px;
+	margin-bottom: 5px;
+}
+.mega-sub-cont li.submenu:hover > a,
+.mega-sub-cont li.submenu:focus > a,
+.mega-sub-cont li.submenu:hover > span,
+.mega-sub-cont li.submenu:focus > span,
+.mega-sub-cont ul.vpf-mega-mod li:hover > a,
+.mega-sub-cont ul.vpf-mega-mod li:focus > a,
+.mega-sub-cont ul.vpf-mega-mod li:hover > span
+.mega-sub-cont ul.vpf-mega-mod li:focus > span {
+	background-color: transparent;	
+}
+.mega-sub-cont li.submenu.deeper:not(.mega-group) > a:after,
+.mega-sub-cont li.submenu.deeper:not(.mega-group) > span:after,
+.mega-sub-cont ul.vpf-mega-mod li.deeper > a:after,
+.mega-sub-cont ul.vpf-mega-mod li.deeper > span:after {
+	display: block;
+	position: absolute;
+	top: 11px;
+	right: 0;
+	content: " ";
+	width: 0;
+	height: 0;
+	border-color: rgba(0, 0, 0, 0);
+	border-style: solid;
+	border-width: 4px 0 4px 4px;
+	border-left-color: #CCC;
+	margin-top: 0;
+	margin-right: 0;
+}
+.vpf-menu .submenu > a .image-title,
+.vpf-menu .submenu > span .image-title {
+	line-height: 24px;
+}
+.mega-menu-group img {
+	display: block;
+	width: 100% \9;
+	max-width: 100%;
+	height: auto;
+}
+.level-2.submenu .mega-menu-group > ul > li > ul > li > a,
+.level-2.submenu .mega-menu-group > ul > li > ul > li > span {
+	position: relative;
+	padding-left: 12px;
+}
+.level-2.submenu .mega-menu-group > ul > li > ul > li > a:before,
+.level-2.submenu .mega-menu-group > ul > li > ul > li > span:before {
+	font-family: 'VPFrameworkIcon';
+	content: "\edbb";
+	display: block;
+	float: left;
+	margin-left : -12px;
+	font-size: 8px;
+	line-height: 18px;
+	transition: margin-left 100ms ease-in-out;
+	-moz-transition: margin-left 100ms ease-in-out;
+	-webkit-transition: margin-left 100ms ease-in-out;
+	-o-transition: margin-left 100ms ease-in-out;	
+}
+.level-2.submenu .mega-menu-group > ul > li > ul > li:hover > a:before,
+.level-2.submenu .mega-menu-group > ul > li > ul > li:focus > a:before,
+.level-2.submenu .mega-menu-group > ul > li > ul > li:hover > span:before,
+.level-2.submenu .mega-menu-group > ul > li > ul > li:focus > span:before {
+	margin-left: -10px;
+}
+.vpf-menu .submenu li.deeper,
+.vpf-menu li.submenu.deeper  {
+	position: relative;
+}
+.vpf-menu .submenu li.deeper > ul,
+.vpf-menu .submenu.deeper > .mega-menu-expand {	
+	display: none;
+	float: left;
+	top: 0;
+	left: 100%;
+	margin-top: 5px;
+	margin-left: 10px;
+	border-top: 0 none;
+	-moz-box-shadow: 0 3px 10px rgba(0,0,0, 0.15);
+	-webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+	z-index: 102;
+}
+.vpf-menu .submenu.deeper > .mega-menu-expand {
+	margin-left: 0;
+}
+.vpf-menu .submenu li.deeper > ul.mega-align-right,
+.vpf-menu li.submenu.deeper > .mega-menu-expand.mega-align-right {
+	right: 100%;
+	left: auto;
+}
+.vpf-menu .level-1 > a .image-title,
+.vpf-menu .level-1 > span .image-title,
+.vpf-menu .submenu > a .image-title,
+.vpf-menu .submenu > span .image-title {
+	display: inline-block;
+}
+.vpf-menu a > .menu-group > .menu-desc,
+.vpf-menu span > .menu-group > .menu-desc {
+	display: block;
+	text-transform: none;
+	color: #777;
+	font-size: 0.8em;
+	line-height: 1;	
+}
+.submenu.mega-group .menu-group.with-description .menu-desc {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+.navbar-mainmenu .navbar-nav li.submenu.mega-group.level-2 > a .with-icon.with-description .menu-desc,
+.navbar-mainmenu .navbar-nav li.submenu.mega-group.level-2 > span .with-icon.with-description .menu-desc {
+	margin-left: -24px;
+	float: left;
+}
+.vpf-menu .level-1 > a > .menu-group {
+	display: inline-block;
+	position: relative;
+}
+.vpf-menu .level-1 > a > .menu-group.with-description,
+.vpf-menu .level-1 > span > .menu-group.with-description,
+.vpf-menu .submenu > a > .menu-group.with-description,
+.vpf-menu .submenu > span > .menu-group.with-description {
+	display: inline-block;
+	margin-top: -5px;
+	float: none;
+	vertical-align: middle;
+}
+.vpf-menu .level-1 > a > .menu-group.with-description + .caret {
+	margin-top: -5px;
+}
+.vpf-menu .level-1 > a > .menu-group.with-image,
+.vpf-menu .level-1 > span > .menu-group.with-image,
+.vpf-menu .submenu:not(.mega-group) > a > .menu-group.with-image,
+.vpf-menu .submenu:not(.mega-group) > span > .menu-group.with-image {
+	padding-left: 35px;
+	display: block;
+	position: relative;
+}
+.vpf-menu .level-1 > a > .menu-group.with-image > .menu-image,
+.vpf-menu .level-1 > span > .menu-group.with-image > .menu-image,
+.vpf-menu .submenu:not(.mega-group) > a > .menu-group.with-image > .menu-image,
+.vpf-menu .submenu:not(.mega-group) > span > .menu-group.with-image > .menu-image  {
+	display: inline-block;
+	float: left;
+	margin-left: -35px;
+	padding-top: 2px;
+}
+.vpf-menu .level-1 > a > .menu-group.with-image > .menu-image > img,
+.vpf-menu .level-1 > span > .menu-group.with-image > .menu-image > img,
+.vpf-menu .submenu:not(.mega-group) > a > .menu-group.with-image > .menu-image > img,
+.vpf-menu .submenu:not(.mega-group) > span > .menu-group.with-image > .menu-image > img {
+	max-height: 24px;
+	width: auto;
+}
+.vpf-menu .level-1 > a > .menu-group.with-icon,
+.vpf-menu .level-1 > span > .menu-group.with-icon,
+.vpf-menu .submenu > a > .menu-group.with-icon,
+.vpf-menu .submenu > span > .menu-group.with-icon {
+	display: inline-block;
+	padding-left: 24px;
+}
+.vpf-menu .level-1 > a > .menu-group.with-icon > .menu-image,
+.vpf-menu .level-1 > span > .menu-group.with-icon > .menu-image,
+.vpf-menu .submenu > a > .menu-group.with-icon > .menu-image,
+.vpf-menu .submenu > span > .menu-group.with-icon > .menu-image {
+	display: inline-block;
+	float: left;
+	margin-left: -24px;
+	font-size: 16px;
+}
+.vpf-menu .submenu:not(.mega-group) > a > .menu-group.with-icon > .menu-image,
+.vpf-menu .submenu:not(.mega-group) > span > .menu-group.with-icon > .menu-image {
+	font-size: 14px;
+}
+.vpf-menu .submenu:not(.mega-group) > a > .menu-group.with-icon > .menu-image > i,
+.vpf-menu .submenu:not(.mega-group) > span > .menu-group.with-icon > .menu-image > i {
+	vertical-align: top;
+}
+.vpf-menu .submenu.mega-group > a > .menu-group:not(.with-icon) > .menu-image,
+.vpf-menu .submenu.mega-group > span > .menu-group:not(.with-icon) > .menu-image {
+	display: block;
+	width: auto;
+}
+.vpf-menu .submenu.mega-group > a > .menu-group > .image-title, 
+.vpf-menu .submenu.mega-group > span > .menu-group > .image-title {
+	margin-left: 0;
+	vertical-align: middle;
+}
+.sticker {
+	display: inline;
+	padding: .3em .5em .3em;
+	font-size: 0.7em;
+	font-weight: normal;
+	line-height: 1;
+	color: #FFF;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	border-radius: 0;	
+	transition: color 100ms ease-in-out, background-color 100ms ease-in-out;
+	-moz-transition: color 100ms ease-in-out, background-color 100ms ease-in-out;
+	-webkit-transition: color 100ms ease-in-out, background-color 100ms ease-in-out;
+	-o-transition: color 100ms ease-in-out, background-color 100ms ease-in-out;
+}
+.vpf-menu .level-1 > a .sticker {
+	position: absolute;
+	top: -24px;
+	right: 0;
+	font-size: 0.9em;
+}
+.sticky .vpf-menu .level-1 > a .sticker {
+	display: none;
+}
+.vpf-menu .submenu .sticker {
+	margin-left: 10px;
+}
+.sticker:before {
+	display: none;
+	position: absolute;
+	right: 6px;
+	top: 100%;
+	width: 0;
+	height: 0;
+	content: " ";
+	border-style: solid;
+	border-width: 4px;
+	border-color: rgba(0, 0, 0, 0);
+	transition: border-color 100ms ease-in-out;
+	-moz-transition: border-color 100ms ease-in-out;
+	-webkit-transition: border-color 100ms ease-in-out;
+	-o-transition: border-color 100ms ease-in-out;	
+}
+.vpf-menu .level-1 > a .sticker:before {
+	display: block;
+}
+.sticker-grey {
+	background-color: #777;
+}
+.sticker-grey:before {
+	border-top-color: #777;
+}
+.sticker-green {
+	background-color: #5CB85C;
+}
+.sticker-green:before {
+	border-top-color: #5CB85C;
+}
+.sticker-blue {
+	background-color: #31B0D5;
+}
+.sticker-blue:before {
+	border-top-color: #31B0D5;
+}
+.sticker-yellow {
+	background-color: #F0AD4E;
+}
+.sticker-yellow:before {
+	border-top-color: #F0AD4E;
+}
+.sticker-orange {
+	background-color: #FF6600;
+}
+.sticker-orange:before {
+	border-top-color: #FF6600;
+}
+.sticker-base {
+	background-color: #FE5252;
+}
+.sticker-base:before {
+	border-top-color: #FE5252;
+}
+.sticker-red {
+	background-color: #D9534F;
+}
+.sticker-red:before {
+	border-top-color: #D9534F;
+}
+.vpf-menu li.level-1.open > a .sticker,
+.vpf-menu li.level-1.open > span .sticker {
+	background-color: #333;
+}
+.vpf-menu li.level-1.open > a .sticker:before,
+.vpf-menu li.level-1.open > span .sticker:before {
+	border-top-color: #333;
+}
+.vpf-menu li.submenu > a:hover .sticker,
+.vpf-menu li.submenu > a:focus .sticker,
+.vpf-menu li.submenu > span:hover .sticker,
+.vpf-menu li.submenu > span:focus .sticker {
+	background-color: #333;
+}
+.vpf-menu li.submenu > a:hover .sticker:before,
+.vpf-menu li.submenu > a:focus .sticker:before,
+.vpf-menu li.submenu > span:hover .sticker:before,
+.vpf-menu li.submenu > span:focus .sticker:before {
+	border-top-color: #333;
+}
+.mega-menu-promo {
+	text-align: center;
+}
+.mega-menu-promo img {
+	display: inline-block;
+}
+.mega-menu-promo h3 {
+	font-size: inherit;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin: 10px 0 0;
+}
+.navbar-nav > li > span {
+	line-height: 20px;
+}
+/*.vpf-menu .level-1 > .mega-menu-expand > .row {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex; 
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+.vpf-menu .level-2[class^="col-xs"],
+.vpf-menu .level-2[class*=" col-xs"] {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}*/

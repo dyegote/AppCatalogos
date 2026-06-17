@@ -1,0 +1,147 @@
+Quiero generar na aplicacion frontEnd de tipo SinglePageApliation que ejecute las siguientes tareas:
+1. Leer una lista de archvos html que contienen la inforacion de la lista de productos
+2. Extrar la siguiente informacion de cada producto:
+archivo_origen
+TYPO
+CATEGORIA
+SUBCATEGORIA
+codigo
+nombre_producto
+descripcion
+precio
+MOQ
+CTN
+ARANCEL
+IVA
+imagen_relativa
+nombre_imagen
+ruta_imagen_local
+
+3. archivo_origen
+- Nombre del archivo HTML que contiene el producto.
+
+4. TYPO, CATEGORIA Y SUBCATEGORIA
+- NO se obtienen del HTML.
+- Se obtienen del nombre del archivo.
+- Insertar un espacio cuando una palabra cambia de minúscula a mayúscula.
+- Formato esperado:
+  TYPO_CATEGORIA_SUBCATEGORIA.htm
+
+
+Ejemplo:
+HeavyDuty_RepuestosMotor_FiltroAceite.htm
+
+Resultado:
+TYPO = Heavy Duty
+CATEGORIA = Repuestos Motor
+SUBCATEGORIA = Filtro Aceite
+
+5. nombre_producto
+Selector:
+h3.product-name a
+
+Regla:
+Eliminar el código entre corchetes.
+
+Ejemplo:
+[139-1001] RUEDA ARAÑA BOCÍN
+
+Resultado:
+RUEDA ARAÑA BOCÍN
+
+6. codigo
+Extraer mediante expresión regular desde el nombre.
+
+Ejemplo:
+[139-1001] RUEDA ARAÑA BOCÍN
+
+Resultado:
+139-1001
+
+7. descripcion
+Selector:
+div.product-short-desc-cont
+
+Reglas:
+- Eliminar código entre corchetes.
+- Eliminar MOQ.
+- Eliminar CTN.
+- Eliminar IVA.
+- Eliminar ARANCEL.
+
+8. precio
+Selector:
+span.PricesalesPrice
+
+Regla:
+Cambiar separador de miles.
+
+Ejemplo:
+1.250.000
+
+Resultado:
+1,250,000
+
+9. MOQ
+Extraer desde:
+MOQ: 50
+
+Resultado:
+50
+10. CTN
+Extraer desde:
+CTN: 20
+
+Resultado:
+20
+
+11. IVA
+Extraer desde:
+IVA: 19%
+
+Resultado:
+19%
+
+Búsqueda case insensitive.
+
+12. ARANCEL
+Extraer desde:
+Arancel: 5%
+
+Resultado:
+5%
+
+Búsqueda case insensitive.
+
+13. imagen_relativa
+Extraer atributo src de:
+div.product-image-cont img
+14. nombre_imagen
+Usar:
+os.path.basename(imagen_relativa)
+
+15. ruta_imagen_local
+Usar:
+os.path.normpath(
+    os.path.join(
+        os.path.dirname(archivo_html),
+        imagen_relativa
+    )
+)
+
+16. LIMPIEZA GENERAL
+Eliminar:
+- saltos de línea
+- tabulaciones
+- espacios múltiples
+
+Usar:
+re.sub(r"\s+", " ", texto)
+
+17. MANEJO DE ERRORES
+- Registrar errores con print()
+- Continuar procesando los demás archivos
+
+
+18. RESULTADO FINAL
+Generar archivos js css y html necesarios para leer los archivos html, extraer los datos y mostrarlos en una tabla pagina SPA. Los datos se deben poder filtrar por Typo, Categoria y Subcategoria

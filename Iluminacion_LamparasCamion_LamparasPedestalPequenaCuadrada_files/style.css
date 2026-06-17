@@ -1,0 +1,215 @@
+@CHARSET "UTF-8";
+
+/**
+ * Declare globally the vars that we use for: selectable fields, cart fields (.product-field-wrapper)
+ * Just make a change here and will affect all the relevant style declarations
+ */
+.cf4all_wrapper, .dep_cf4all_wrapper, .cf4all_customvalues_wrapper, .product-field-wrapper {
+    --margin-between-buttons: 0.4em;
+    --button-background-color: #f4f4f4;
+    --button-text-color: #555555;
+    --button-border-color: #474949;
+    --button-border-radius: 3px;
+    --small-color-button-width: 2rem;
+    --medium-color-button-width: 2.5rem;
+    --notify-message-text-color: #ff0000;
+    --tooltip-width: 6rem;
+    --tooltip-background-color: #ffffff;
+    --tooltip-text-color: #000000;
+    --tooltip-border-color: #ccc;
+    --tooltip-arrow-size: 7px;
+}
+
+.cf4all_buttons input[type=radio],
+.cf4all_buttons input[type=checkbox],
+.cf4all_color_buttons input[type=radio],
+.cf4all_color_buttons input[type=checkbox] {
+    /*Some templates override that, hence is set to !important*/
+    opacity: 0 !important;
+    transform: scale(0);
+    position: absolute;
+}
+
+/*This code is the same for buttons and color buttons*/
+.cf4all_button {
+    background-image: none !important;
+    box-sizing: border-box;
+    min-height: 1rem;
+    line-height: 1rem;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 500;
+    border: 1px solid var(--button-border-color);
+    border-radius: var(--button-border-radius);
+    margin-inline-end: var(--margin-between-buttons);
+    margin-top: var(--margin-between-buttons);
+}
+
+.cf4all_button:hover {
+    box-shadow: 0 0 1px 1px #bbb;
+}
+
+/*For non-colored buttons*/
+.cf4all_no_color_btn {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    padding: 0.5rem 0.8rem;
+}
+
+/* Active buttons */
+.cf4all_buttons input[type="radio"]:checked + label,
+.cf4all_buttons input[type="checkbox"]:checked + label,
+.cf4all_color_buttons input[type="radio"]:checked + label,
+.cf4all_color_buttons input[type="checkbox"]:checked + label {
+    border: 2px solid var(--button-border-color) !important;
+    box-shadow: 0 0 4px rgba(10, 10, 10, 0.5);
+}
+
+/* Disabled buttons */
+.cf4all_wrapper input[type="radio"]:disabled + label,
+.dep_cf4all_wrapper input[type="radio"]:disabled + label {
+    opacity: 0.5;
+}
+
+.cf4all_wrapper .radio.inline, .cf4all_wrapper .checkbox.inline, .dep_cf4all_wrapper .radio.inline, .dep_cf4all_wrapper .checkbox.inline {
+    display: inline-block;
+    min-height: 20px;
+    vertical-align: middle;
+    padding-left: 0.2rem;
+}
+
+.cf4all_color_btn {
+    display: inline-block;
+}
+
+/*static*/
+.inline-control-group {
+    display: inline-block;
+}
+
+.cf4all_oneline {
+    white-space: pre;
+}
+
+/*Colors are included within the color wrapper*/
+.cf4all_inner_value {
+    min-height: 2rem;
+    float: left;
+}
+
+.cf4all_color_btn_small {
+    /* Do not set an exact width as this may not be enough for the inner-colors (multi-colored buttons) */
+    min-width: var(--small-color-button-width);
+    overflow: hidden;
+}
+
+.cf4all_color_btn_medium {
+    width: var(--medium-color-button-width);
+    overflow: hidden;
+}
+
+.cf4all_error_msg {
+    color: var(--notify-message-text-color) !important;
+    clear: both;
+    width: 100%;
+}
+
+/*
+ These are the static buttons (static in product or in the cart page)
+*/
+.cf4all_customvalues_wrapper .cf4all_color_btn, .product-field-wrapper .cf4all_color_btn {
+    border: 1px solid var(--button-border-color);
+    margin-inline-end: var(--margin-between-buttons);
+}
+
+/* Tooltips*/
+.cf4all_wrapper input ~ [role="tooltip"], .dep_cf4all_wrapper input ~ [role="tooltip"] {
+    clip: rect(0 0 0 0);
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* MS IE|Edge */
+    user-select: none; /* Standard */
+    text-align: center;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    left: 45%;
+    margin-top: .3rem;
+    margin-left: calc(var(--tooltip-width) / -2);
+    box-shadow: none;
+}
+
+/* For radios and checkboxes, move the tooltip to the left, to be in the center of the label*/
+.cf4all_wrapper:not(.cf4all_color_buttons):not(.cf4all_buttons) input ~ [role="tooltip"],
+.dep_cf4all_wrapper:not(.cf4all_color_buttons):not(.cf4all_buttons) input ~ [role="tooltip"] {
+    margin-left: calc((var(--tooltip-width) - 2rem) / -2);
+}
+
+/* For disabled options, make the tooltip a bit less visible */
+.cf4all_wrapper input[type="radio"]:disabled ~ [role="tooltip"] .cf4All-tip-content,
+.dep_cf4all_wrapper input[type="radio"]:disabled ~ [role="tooltip"] .cf4All-tip-content {
+    opacity: 0.5;
+}
+
+.cf4all_wrapper input:hover ~ [role="tooltip"], .dep_cf4all_wrapper input:hover ~ [role="tooltip"] {
+    min-width: var(--tooltip-width);
+    clip: auto;
+    height: auto;
+    display: block;
+}
+
+.cf4all_wrapper .cf4Alltooltip, .dep_cf4all_wrapper .cf4Alltooltip{
+    z-index: 1000;
+    padding: 0.3rem;
+    margin: 0.3rem 0 0 0;
+    box-sizing: border-box;
+    background: var(--tooltip-background-color);
+    background-clip: padding-box;
+    border: 1px solid var(--tooltip-border-color);
+}
+
+.cf4Alltooltip .cf4All-tip-content {
+    color: var(--tooltip-text-color) !important;
+}
+
+.cf4Alltooltip:after, .cf4Alltooltip:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+
+.cf4Alltooltip:after {
+    border-bottom-color: var(--tolltip-backround, #ffffff);
+    border-width: var(--tooltip-arrow-size, 12px);
+    margin-inline-start: calc(var(--tooltip-arrow-size, 12px) * -1);
+}
+
+.cf4Alltooltip:before {
+    border-bottom-color: var(--tolltip-border-color, #ccc);
+    border-width: calc(var(--tooltip-arrow-size) + 2px);
+    margin-inline-start: calc((var(--tooltip-arrow-size, 12px) + 2px) * -1);
+}
+
+/* Style incompatible values */
+.cf4all_incompatible {
+    display: none !important;
+}
+
+.cf4all_incompatible + label {
+    display: none !important;
+}
+
+.cf4all-relative {
+    position: relative;
+}
+
+/* Do not hide that text with display:none. We want it visible to screen readers */
+.cf4all_hidden_text {
+    /*Some templates give font size, which overrides that. */
+    font: 0/0 a !important;
+    color: transparent !important;
+}
