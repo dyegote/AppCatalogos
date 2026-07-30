@@ -2,6 +2,7 @@
 // Sigue las reglas de EspecificacionInicial.txt (selectores y limpieza)
 (function(){
   const fileInput = document.getElementById('fileInput');
+  const fileNames = document.getElementById('fileNames');
   const tbody = document.querySelector('#results tbody');
   const filterTypo = document.getElementById('filterTypo');
   const filterCategoria = document.getElementById('filterCategoria');
@@ -236,6 +237,13 @@
     populate(filterSubcategoria, subs);
   }
 
+  function showSelectedFiles(files){
+    if(!fileNames) return;
+    if(!files || files.length===0){ fileNames.textContent = ''; return; }
+    const names = Array.from(files).map(f=>f.name).join(', ');
+    fileNames.textContent = names;
+  }
+
   function handleFiles(fileList){
     const files = Array.from(fileList).filter(f=>/\.html?$|\.htm$/i.test(f.name));
     if(files.length===0) return;
@@ -258,10 +266,11 @@
   }
 
   fileInput.addEventListener('change', (e)=>{
+    showSelectedFiles(e.target.files);
     handleFiles(e.target.files);
   });
 
-  clearBtn.addEventListener('click', ()=>{ rows=[]; tbody.innerHTML=''; updateFilters(); fileInput.value=''; searchInput.value=''; });
+  clearBtn.addEventListener('click', ()=>{ rows=[]; tbody.innerHTML=''; updateFilters(); fileInput.value=''; searchInput.value=''; if(fileNames) fileNames.textContent=''; });
 
   [filterTypo,filterCategoria,filterSubcategoria,searchInput].forEach(el=>el.addEventListener('input', render));
 

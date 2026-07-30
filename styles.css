@@ -63,4 +63,5 @@ input::placeholder{color:#9aa4b2}
 
 /* small utilities */
 label.file-label{font-weight:600}
+.file-names{margin-top:8px;font-size:13px;color:var(--muted);max-width:560px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 select:focus, input[type=text]:focus, button:focus{outline:3px solid rgba(6,182,212,0.12);outline-offset:2px}
