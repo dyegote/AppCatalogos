@@ -42,7 +42,7 @@ input::placeholder{color:#9aa4b2}
 
 /* Table card */
 .table-wrap{overflow:auto;max-height:60vh;border-radius:10px;background:var(--card);box-shadow:0 10px 30px rgba(12,30,60,0.06);padding:10px;border:1px solid #e6eef6}
-#results{border-collapse:collapse;width:100%;table-layout:fixed;min-width:900px}
+#results{border-collapse:collapse;width:auto;table-layout:auto;min-width:0}
 #results th,#results td{border-bottom:1px solid #f0f3f6;padding:10px 12px;font-size:13px;text-align:left;vertical-align:middle}
 #results thead th{background:linear-gradient(180deg,#f8fafc,#eef6f9);position:sticky;top:0;z-index:2;color:#0b1220}
 #results tbody tr:nth-child(odd){background:#ffffff}
