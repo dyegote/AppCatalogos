@@ -9,6 +9,7 @@
   const filterSubcategoria = document.getElementById('filterSubcategoria');
   const clearBtn = document.getElementById('clearBtn');
   const exportCsvBtn = document.getElementById('exportCsvBtn');
+  const exportXlsBtn = document.getElementById('exportXlsBtn');
   const searchInput = document.getElementById('search');
 
   let rows = [];
@@ -282,5 +283,24 @@
     const blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8;'});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a'); a.href = url; a.download = 'productos.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  });
+
+  // Export to Excel (HTML table wrapper) - opens in Excel
+  exportXlsBtn.addEventListener('click', ()=>{
+    if(rows.length===0) return alert('No hay datos a exportar');
+    const cols = ['codigo','nombre_producto','MARCA','TYPO','CATEGORIA','SUBCATEGORIA','precio','MOQ','CTN','ARANCEL','IVA','imagen_relativa','archivo_origen'];
+    const headerLabels = ['CODIGO','NOMBRE_PRODUCTO','MARCA','TYPO','CATEGORIA','SUBCATEGORIA','PRECIO','MOQ','CTN','ARANCEL','IVA','IMAGEN_RELATIVA','ARCHIVO_ORIGEN'];
+
+    // build HTML table
+    let table = '<table><thead><tr>' + headerLabels.map(h=>`<th>${h}</th>`).join('') + '</tr></thead><tbody>';
+    rows.forEach(r=>{
+      table += '<tr>' + cols.map(c=>`<td>${(r[c]||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</td>`).join('') + '</tr>';
+    });
+    table += '</tbody></table>';
+
+    const html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"></head><body>' + table + '</body></html>';
+    const blob = new Blob([html], {type: 'application/vnd.ms-excel;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'productos.xls'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
   });
 })();

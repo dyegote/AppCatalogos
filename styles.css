@@ -19,20 +19,21 @@ main{margin-top:14px;display:flex;flex-direction:column;gap:12px}
 .controls .left{display:flex;gap:8px;align-items:center}
 .actions{display:flex;gap:10px;align-items:center;margin-top:6px}
 .file-label{background:linear-gradient(180deg,#fff,#fbfbfb);padding:8px 10px;border-radius:8px;border:1px solid #e6eef6;box-shadow:0 2px 6px rgba(12,30,60,0.03);display:inline-flex;align-items:center;gap:10px;position:relative;overflow:hidden}
-/* Hide default input visuals but keep it accessible; style native file button */
-.file-label input[type=file]{position:relative;z-index:2;cursor:pointer;background:transparent;border:0;padding:0;margin:0}
-.file-label input[type=file]::-webkit-file-upload-button{background:var(--accent);color:#fff;border:none;padding:8px 12px;margin-right:8px;border-radius:8px;font-weight:700;cursor:pointer}
-.file-label input[type=file]::file-selector-button{background:var(--accent);color:#fff;border:none;padding:8px 12px;margin-right:8px;border-radius:8px;font-weight:700;cursor:pointer}
-/* show filename text next to button (browsers place filename after button) */
+/* Show native file input button and style it */
+.file-label input[type=file]{position:relative;z-index:2;cursor:pointer;background:transparent;border:0;padding:0;margin:0;display:inline-block}
+.file-label input[type=file]::-webkit-file-upload-button,
+.file-label input[type=file]::file-selector-button{
+  padding:8px 12px;border-radius:8px;border:1px solid #e5e7eb;background:#f3f4f6;color:#111;font-weight:700;cursor:pointer;margin-right:8px;
+}
 .file-label::after{content:'';flex:1;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* On focus make visible ring */
 .file-label input[type=file]:focus-visible{outline:3px solid rgba(6,182,212,0.12);outline-offset:3px}
 
 
-button{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
-button#exportCsvBtn{background:var(--accent);color:#fff}
-button#clearBtn{background:#fff;color:var(--accent);border:1px solid rgba(107,114,128,0.18)}
-button:hover{filter:brightness(0.98)}
+button{padding:8px 12px;border-radius:8px;border:1px solid #e5e7eb;cursor:pointer;font-weight:700;background:#f3f4f6;color:#111;box-shadow:0 4px 10px rgba(11,17,25,0.04)}
+button:hover{filter:brightness(0.98);transform:translateY(-1px)}
+button:active{transform:translateY(0)}
+/* file input native button remains styled via ::file-selector-button */
 
 /* Filters panel */
 .filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfcff);border:1px solid #eef6f9;box-shadow:0 6px 16px rgba(6,30,45,0.03)}
