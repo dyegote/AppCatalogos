@@ -17,8 +17,16 @@ main{margin-top:14px;display:flex;flex-direction:column;gap:12px}
 /* Controls: file input + primary actions */
 .controls{display:flex;justify-content:space-between;gap:12px;align-items:center}
 .controls .left, .controls .right{display:flex;gap:8px;align-items:center}
-.file-label{background:linear-gradient(180deg,#fff,#fbfbfb);padding:8px 10px;border-radius:8px;border:1px solid #e6eef6;box-shadow:0 2px 6px rgba(12,30,60,0.03)}
-.file-label input{display:inline-block}
+.file-label{background:linear-gradient(180deg,#fff,#fbfbfb);padding:8px 10px;border-radius:8px;border:1px solid #e6eef6;box-shadow:0 2px 6px rgba(12,30,60,0.03);display:inline-flex;align-items:center;gap:10px;position:relative;overflow:hidden}
+/* Hide default input visuals but keep it accessible; style native file button */
+.file-label input[type=file]{position:relative;z-index:2;cursor:pointer;background:transparent;border:0;padding:0;margin:0}
+.file-label input[type=file]::-webkit-file-upload-button{background:var(--accent);color:#fff;border:none;padding:8px 12px;margin-right:8px;border-radius:8px;font-weight:700;cursor:pointer}
+.file-label input[type=file]::file-selector-button{background:var(--accent);color:#fff;border:none;padding:8px 12px;margin-right:8px;border-radius:8px;font-weight:700;cursor:pointer}
+/* show filename text next to button (browsers place filename after button) */
+.file-label::after{content:'';flex:1;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* On focus make visible ring */
+.file-label input[type=file]:focus-visible{outline:3px solid rgba(6,182,212,0.12);outline-offset:3px}
+
 
 button{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
 button#exportCsvBtn{background:var(--accent);color:#fff}
