@@ -97,18 +97,45 @@
         // permitir que item sea .product-item o un h3
         const container = (item.classList && item.classList.contains('product-item')) ? item : item.closest('.product-item') || item.parentElement;
         const nameEl = container.querySelector('h3.product-name a') || container.querySelector('h3.product-name');
+        // intentar obtener un enlace al producto (varias posibles ubicaciones/clases)
+        const linkEl = container.querySelector('h3.product-name a') || container.querySelector('a.hover-invert') || container.querySelector('a.product-details-button') || container.querySelector('a');
+        const productUrl = linkEl ? (linkEl.getAttribute('href') || '') : '';
         const fullName = nameEl? nameEl.textContent : '';
         const codigo = extractCodeFromName(fullName);
         const nombre_producto = cleanText(removeBracketCode(fullName));
 
-        const descEl = container.querySelector('div.product-short-desc-cont');
+                const descEl = container.querySelector('div.product-short-desc-cont');
         const descRaw = descEl? descEl.textContent : '';
-        // extraer MARCA (Marca: ...), detener antes de MOQ/CTN/Arancel/IVA
-        const marcaMatch = descRaw.match(/Marca[:]?\s*([^\n\r]*?)(?=\s*(MOQ[:]|CTN[:]|Arancel[:]|IVA[:]|$))/i);
-        const MARCA = marcaMatch? marcaMatch[1].trim() : '';
+        // extraer MARCA (Marca: ...). Usar textContent para evitar capturas erróneas por HTML mezclado
+        let MARCA = '';
+        if(descEl){
+          // intentar extraer marca directamente del innerHTML tomando sólo hasta la siguiente etiqueta
+          const html = descEl.innerHTML || '';
+          const marcaPos = html.search(/Marca\s*[:：]/i);
+          if(marcaPos >= 0){
+            const rest = html.slice(marcaPos);
+            const nextTag = rest.indexOf('<');
+            const snippet = nextTag >= 0 ? rest.slice(0,nextTag) : rest;
+            MARCA = snippet.replace(/<[^>]+>/g,'').replace(/&nbsp;/g,' ').replace(/Marca\s*[:：]\s*/i,'').trim();
+          } else {
+            // fallback a textContent buscando hasta MOQ/CTN/Arancel/IVA
+            const text = descEl.textContent || '';
+            const marcaIdx = text.search(/Marca\s*[:：]/i);
+            if(marcaIdx >= 0){
+              const after = text.slice(marcaIdx).replace(/Marca\s*[:：]\s*/i, '');
+              const m = after.match(/([^\r\n]*?)(?=\s*(MOQ|CTN|Arancel|IVA|$))/i);
+              if(m && m[1]) MARCA = m[1].trim();
+            }
+          }
+        }
         let descripcion = cleanText(removeBracketCode(descRaw));
-        // eliminar MARCA del texto
-        descripcion = descripcion.replace(/Marca[:]?[\s]*[^\n\r<]*/i,'');
+        // eliminar MARCA del texto sin eliminar contenido extra: si se detectó MARCA, remover solo esa ocurrencia
+        if(MARCA){
+          const esc = MARCA.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&');
+          descripcion = descripcion.replace(new RegExp('Marca[:]?[\\s]*'+esc,'i'),'');
+        } else {
+          descripcion = descripcion.replace(/Marca[:]?[\\s]*[^\\n\\r<]*/i,'');
+        }
         // eliminar duplicado del nombre del producto al inicio de la descripción
         if(nombre_producto){
           const esc = nombre_producto.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
@@ -149,7 +176,8 @@
           CTN: CTN,
           ARANCEL: ARANCEL,
           IVA: IVA,
-          imagen_relativa: imagen_relativa
+          imagen_relativa: imagen_relativa,
+          product_url: productUrl
         });
       }catch(err){
         console.log('Error procesando item en', archivoName, err);
@@ -178,7 +206,16 @@
       const tr = document.createElement('tr');
       ['codigo','nombre_producto','MARCA','TYPO','CATEGORIA','SUBCATEGORIA','precio','MOQ','CTN','ARANCEL','IVA','imagen_relativa','archivo_origen'].forEach(k=>{
         const td = document.createElement('td');
-        td.textContent = r[k]||'';
+        if(k === 'nombre_producto' && r.product_url){
+          const a = document.createElement('a');
+          a.href = r.product_url;
+          a.textContent = r[k]||'';
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          td.appendChild(a);
+        } else {
+          td.textContent = r[k]||'';
+        }
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
@@ -231,7 +268,6 @@
   exportCsvBtn.addEventListener('click', ()=>{
     if(rows.length===0) return alert('No hay datos a exportar');
     const cols = ['codigo','nombre_producto','MARCA','TYPO','CATEGORIA','SUBCATEGORIA','precio','MOQ','CTN','ARANCEL','IVA','imagen_relativa','archivo_origen'];
-    // encabezados en MAYÚSCULAS
     const headerLabels = ['CODIGO','NOMBRE_PRODUCTO','MARCA','TYPO','CATEGORIA','SUBCATEGORIA','PRECIO','MOQ','CTN','ARANCEL','IVA','IMAGEN_RELATIVA','ARCHIVO_ORIGEN'];
     const lines = [headerLabels.join(',')].concat(rows.map(r=>cols.map(c=>`"${(r[c]||'').toString().replace(/"/g,'""')}"`).join(',')));
     const blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8;'});
