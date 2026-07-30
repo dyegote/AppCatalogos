@@ -3,13 +3,13 @@
   --bg:#0f1724; /* dark navy */
   --card:#ffffff;
   --muted:#6b7280;
-  --accent:#ff0000; /* bright red */
+  --accent:#6b7280; /* gray */
   --accent-2:#6b7280; /* gray */
   --surface:#f8fafc;
 }
 *{box-sizing:border-box}
 body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; margin:18px; color:#111; background:linear-gradient(180deg,#f0f6fb 0%, #fff 100%)}
-header{background:linear-gradient(90deg, rgba(255,0,0,0.12), rgba(107,114,128,0.06)); padding:20px; border-radius:10px; display:flex; flex-direction:column; gap:6px; box-shadow:0 6px 18px rgba(6,22,45,0.06)}
+header{background:linear-gradient(90deg, rgba(107,114,128,0.12), rgba(107,114,128,0.06)); padding:20px; border-radius:10px; display:flex; flex-direction:column; gap:6px; box-shadow:0 6px 18px rgba(6,22,45,0.06)}
 header h1{margin:0;font-size:22px;letter-spacing:0.6px;color:var(--accent);text-transform:uppercase}
 header p{margin:0;color:var(--muted);font-size:13px}
 main{margin-top:14px;display:flex;flex-direction:column;gap:12px}
@@ -31,7 +31,7 @@ main{margin-top:14px;display:flex;flex-direction:column;gap:12px}
 
 button{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
 button#exportCsvBtn{background:var(--accent);color:#fff}
-button#clearBtn{background:#fff;color:var(--accent);border:1px solid rgba(255,0,0,0.18)}
+button#clearBtn{background:#fff;color:var(--accent);border:1px solid rgba(107,114,128,0.18)}
 button:hover{filter:brightness(0.98)}
 
 /* Filters panel */
