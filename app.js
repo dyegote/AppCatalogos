@@ -303,4 +303,27 @@
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a'); a.href = url; a.download = 'productos.xls'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
   });
+
+  // Tab switching
+  const tabBtnExtractor = document.getElementById('tabBtnExtractor');
+  const tabBtnGenerator = document.getElementById('tabBtnGenerator');
+  const tabExtractor = document.getElementById('tab-extractor');
+  const tabGenerator = document.getElementById('tab-generator');
+  function showTab(name){
+    if(!tabExtractor || !tabGenerator || !tabBtnExtractor || !tabBtnGenerator) return;
+    if(name==='extractor'){
+      tabExtractor.classList.add('active'); tabGenerator.classList.remove('active');
+      tabBtnExtractor.classList.add('active'); tabBtnGenerator.classList.remove('active');
+      tabGenerator.setAttribute('aria-hidden','true'); tabExtractor.setAttribute('aria-hidden','false');
+    } else {
+      tabExtractor.classList.remove('active'); tabGenerator.classList.add('active');
+      tabBtnExtractor.classList.remove('active'); tabBtnGenerator.classList.add('active');
+      tabGenerator.setAttribute('aria-hidden','false'); tabExtractor.setAttribute('aria-hidden','true');
+    }
+  }
+  if(tabBtnExtractor && tabBtnGenerator){
+    tabBtnExtractor.addEventListener('click', ()=> showTab('extractor'));
+    tabBtnGenerator.addEventListener('click', ()=> showTab('generator'));
+  }
+
 })();

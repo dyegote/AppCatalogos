@@ -7,11 +7,16 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>EXTRACTOR DE PRODUCTOS KTC</h1>
-    <p>Cargue uno o varios archivos HTML de catálogo para extraer datos según EspecificacionInicial.txt</p>
-  </header>
+  <nav class="tabs">
+    <button id="tabBtnExtractor" class="tab-btn active">Generar lista</button>
+    <button id="tabBtnGenerator" class="tab-btn">Generar catálogo</button>
+  </nav>
   <main>
+    <div id="tab-extractor" class="tab-content active">
+    <header>
+      <h1>EXTRACTOR DE PRODUCTOS KTC</h1>
+      <p>Cargue uno o varios archivos HTML de catálogo para extraer datos según EspecificacionInicial.txt</p>
+    </header>
     <section class="controls">
       <div class="left">
         <label class="file-label">Seleccionar archivos HTML:
@@ -54,6 +59,24 @@
         <tbody></tbody>
       </table>
     </section>
+    </div>
+
+    <div id="tab-generator" class="tab-content" aria-hidden="true">
+      <header>
+        <h1>GENERAR CATÁLOGO</h1>
+        <p>Sube un archivo Excel con la lista de productos para generar el catálogo.</p>
+      </header>
+      <section class="generator">
+        <p>Sube un archivo Excel con la lista de productos para generar el catálogo.</p>
+        <label class="file-label">Seleccionar archivo Excel:
+          <input id="excelInput" type="file" accept=".xls,.xlsx" />
+        </label>
+        <div class="generator-actions">
+          <button id="previewExcelBtn">Previsualizar</button>
+          <button id="generateCatalogBtn">Generar catálogo</button>
+        </div>
+      </section>
+    </div>
   </main>
   <script src="app.js" defer></script>
 </body>
